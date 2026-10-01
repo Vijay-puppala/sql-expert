@@ -48,6 +48,8 @@ with the portable alternative for MySQL, SQL Server and Oracle.
 ## Running it locally
 
 ```bash
+git clone https://github.com/Vijay-puppala/sql-expert.git
+cd sql-expert
 npm install
 npm run dev      # http://localhost:5173
 ```
@@ -64,19 +66,19 @@ npm run gen      # regenerate the data index after editing src/data/patterns/
 
 ### Vercel
 
-The repo root is the *parent* of this folder, so set **Root Directory** to
-`sql-interview-patterns` when importing the project. Everything else is
-detected automatically — `vercel.json` pins the framework, the build command
-and the SPA rewrite that makes `/pattern/<slug>` work on a hard refresh.
+The app is at the repository root, so nothing needs configuring. Import the
+repo at [vercel.com/new](https://vercel.com/new) and click **Deploy** —
+`vercel.json` already pins the framework, the build command and the SPA
+rewrite that makes `/pattern/<slug>` work on a hard refresh.
 
 ```
-Framework Preset:  Vite
-Root Directory:    sql-interview-patterns
+Framework Preset:  Vite      (detected)
 Build Command:     npm run build
 Output Directory:  dist
+Install Command:   npm install
 ```
 
-Or from the CLI, inside this folder:
+Or from the CLI:
 
 ```bash
 npx vercel --prod
@@ -90,9 +92,8 @@ unknown paths to `/index.html` so client-side routing survives a refresh.
 
 ### Lovable
 
-Lovable expects the app at the repository root. Either point it at a repo whose
-root is this folder, or move these files up one level and drop the
-`sql-interview-patterns` directory.
+Lovable expects the app at the repository root, which is where it already is —
+point Lovable at this repo and it will build as-is.
 
 ## Adding or editing content
 
@@ -110,3 +111,7 @@ npm run check    # asserts 10 questions per pattern, unique ids, no empty fields
 Vite + React + TypeScript, plain CSS, no UI framework. Each pattern's questions
 are a separate lazily-imported chunk, so the home page ships ~80 kB gzipped and
 a pattern page pulls only its own ~5 kB.
+
+`npm run build:artifact` produces a different shape: one self-contained HTML
+file with everything inlined and routing held in memory, for hosts that serve a
+single page from a single URL.
